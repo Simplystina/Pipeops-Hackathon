@@ -39,5 +39,6 @@ const sendInvitationBusinessEmail = (email: string, password:string) => {
 }
 
 export default {
- sendInvitationBusinessEmail
+    sendInvitationBusinessEmail,
+    sendEmail
 }
