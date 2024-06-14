@@ -69,16 +69,12 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         default: null
     },
-    businessName: {
+    firstName: {
         type: String,
         default: null
     },
-    businesQrCode: {
+    lastName: {
         type: String
-    },
-    businessLogo: {
-        type: String,
-        default: null
     },
     stateOfOrigin: {
         type: String,
@@ -124,6 +120,11 @@ const userSchema = new mongoose_1.Schema({
     TokenExpire: {
         type: Number,
         select: false
+    },
+    isEmailVerified: {
+        type: Boolean,
+        required: [true, 'Used to Know If Email Is Verified, State is Required'],
+        default: false
     },
     hasPasswordChanged: {
         type: Boolean,

@@ -15,7 +15,16 @@ const login = {
         password: joi_1.default.string().required()
     })
 };
+const signup = {
+    body: joi_1.default.object().keys({
+        email: joi_1.default.string().email().required(),
+        password: joi_1.default.string().required(),
+        firstName: joi_1.default.string().required(),
+        lastName: joi_1.default.string().required()
+    })
+};
 exports.default = {
     InviteBusiness,
     login,
+    signup
 };

@@ -12,13 +12,13 @@ interface IUser extends Document {
   thumbnail: string | null;
   role: 'user' | 'admin' | 'super'| 'business';
   stateOfOrigin: string | null; address: string | null;
-  businesQrCode: string | null;
-  businessName: string | null;
-  businessLogo: string | null;
+  firstName: string | null;
+  lastName: string | null;
   localGovtOfOrigin: string | null;
   stateOfResidence: string | null;
   localGovtOfResidence: string | null;
   hasPasswordChanged: boolean
+  isEmailVerified: boolean;
   TokenExpire: number | null;
   Token: number | null;
   resetPasswordToken: string | null;
@@ -64,16 +64,12 @@ const userSchema: Schema<IUser> = new Schema({
     type: String,
     default: null
   },
-  businessName: {
+  firstName: {
     type: String,
     default: null
   },
-   businesQrCode:{
+  lastName:{
     type: String
-    },
-  businessLogo: {
-      type: String,
-      default: null
     },
   stateOfOrigin: {
       type: String,
@@ -120,6 +116,11 @@ const userSchema: Schema<IUser> = new Schema({
     type: Number,
     select: false
   },
+  isEmailVerified: {
+      type: Boolean,
+      required: [true, 'Used to Know If Email Is Verified, State is Required'],
+      default: false
+    },
   hasPasswordChanged: {
     type: Boolean,
     default: false

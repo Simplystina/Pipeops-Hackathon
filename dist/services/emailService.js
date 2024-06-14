@@ -38,5 +38,6 @@ const sendInvitationBusinessEmail = (email, password) => {
     sendEmail(email, subject, text);
 };
 exports.default = {
-    sendInvitationBusinessEmail
+    sendInvitationBusinessEmail,
+    sendEmail
 };

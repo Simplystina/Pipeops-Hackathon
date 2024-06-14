@@ -10,7 +10,7 @@ import emailService from "../services/emailService";
  * @access Public
  * @type POST
  */
-exports.register = asyncHandler(async (req, res, next) => {
+const register = asyncHandler(async (req, res, next) => {
   const { email } = req.body
   try {
    
@@ -53,7 +53,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 /**
  * 
  */
-export const login = asyncHandler(async (req,res, next) => {
+const login = asyncHandler(async (req,res, next) => {
    const { email, password } = req.body;
    const user = await UserModel.findOne({ email: email })
      .select('+password')
@@ -69,3 +69,8 @@ export const login = asyncHandler(async (req,res, next) => {
    }
    sendTokenResponse(user, 200, res);
 })
+
+export {
+ register,
+  login
+}

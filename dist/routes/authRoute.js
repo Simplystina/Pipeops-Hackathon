@@ -8,5 +8,6 @@ const router = express.Router();
 const authController_1 = require("../controller/authController");
 const authValidation_1 = __importDefault(require("../validation/authValidation"));
 const validate_1 = __importDefault(require("../middlewares/validate"));
+router.post('/signup', (0, validate_1.default)(authValidation_1.default.signup), authController_1.register);
 router.post('/login', (0, validate_1.default)(authValidation_1.default.login), authController_1.login);
 exports.default = router;
