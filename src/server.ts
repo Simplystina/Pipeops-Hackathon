@@ -15,7 +15,7 @@ import EnvVars from './constants/EnvVars';
 
 import { NodeEnvs } from './constants/misc';
 import errorHandler from './core/core.error';
-import { AuthRoute, SuperRoute, BusinessRoute } from './routes';
+import { AuthRoute, SuperRoute, BusinessRoute , OrderRoute} from './routes';
 
 // **** Variables **** //
 
@@ -73,6 +73,7 @@ app.all('/', (req, res) => {
 app.use('/v1/auth', AuthRoute);
 app.use('/v1/super', SuperRoute);
 app.use('/v1/business', BusinessRoute);
+app.use('/v1/order', OrderRoute);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

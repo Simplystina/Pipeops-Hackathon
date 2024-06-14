@@ -32,7 +32,7 @@ const Auth = asyncHandler(async (req :CustomRequest, res: Response, next :NextFu
     // Verify token
    const decoded = Jwt.verify(token, process.env.JWT_SECRET as string) as { user_id: string };
     req.user = await UserModel.findById(decoded.user_id)
-    if (req.user && req.user.role === 'business') {
+    if (req.user) {
       return next();
       
     } else {
