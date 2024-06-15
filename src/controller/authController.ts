@@ -15,7 +15,7 @@ const register = asyncHandler(async (req, res, next) => {
   try {
    
     const checkAccount = await UserModel.findOne({
-      username: email
+      email: email
     });
 
     if (checkAccount) {
