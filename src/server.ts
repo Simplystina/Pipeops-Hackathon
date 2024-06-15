@@ -69,7 +69,7 @@ app.all('/', (req, res) => {
       data: { ...req.body, ...req.query }
     });
 });
-app.use('/paystack/webhook', orderController.checkOrderStatus)
+app.post('/paystack/webhook', orderController.checkOrderStatus)
 // Add APIs, must be after middleware
 app.use('/v1/auth', AuthRoute);
 app.use('/v1/super', SuperRoute);
