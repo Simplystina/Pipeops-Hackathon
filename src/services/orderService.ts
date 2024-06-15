@@ -30,11 +30,11 @@ const checkPaymentCode = async (code:string) => {
     if (!getCode.isCodeActive) {
         throw new ErrorResponse(404, 'This code is no longer active')
     }
-     if (!getCode.hasPaid) {
+     if (getCode.hasPaid) {
         throw new ErrorResponse(404, 'This order has been paid for')
      }
-    
-
+    console.log(getCode, "getCode")
+    return getCode
 };
 
 export default {

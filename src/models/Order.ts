@@ -42,7 +42,7 @@ const orderSchema: Schema<IOrder> = new Schema({
   },
   paidDelivery: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   customerLocation: {
     type: String,
@@ -62,7 +62,7 @@ const orderSchema: Schema<IOrder> = new Schema({
   },
   hasPaid: {
     type: Boolean,
-    default: null,
+    default: false,
   },
   paymentCode: {
     type: String,
@@ -74,7 +74,7 @@ const orderSchema: Schema<IOrder> = new Schema({
   },
   isCodeActive: {
     type: Boolean,
-    default: null,
+    default: true,
   },
 }, { timestamps: true });
 

@@ -5,7 +5,7 @@ import { password } from './customValidation';
 
 const createAnOrder = {
   body: Joi.object().keys({
-  customerPhone: Joi.string().allow(null),
+  customerPhone: Joi.string(),
   totalAmount: Joi.number().default(0),
   itemOrdered: Joi.array().items(
     Joi.object({
