@@ -16,7 +16,13 @@ const generateAnOrderURL = asyncHandler(async (req:CustomRequest, res:Response) 
 
 const checkPaymentCode = asyncHandler(async (req: CustomRequest, res: Response) => {
   const data = await orderService.checkPaymentCode(req.body.code)
-  console.log(data,"data")
+  console.log(data, "data")
+   return res.status(200).json({
+    success: true,
+    status:'success',
+    message: 'Order URL Generated Successfully.',
+    data
+  })
 })
 
 export default {
