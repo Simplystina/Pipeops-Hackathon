@@ -2,6 +2,8 @@ import { ErrorResponse } from "../core";
 import OrderModel from "../models/Order";
 import generateUniqueInvitationCode from "../util/uniqueCode";
 import dotenv from "dotenv"
+const https = require('https')
+import { Request, Response, NextFunction } from "express";
 
 dotenv.config()
 
@@ -33,8 +35,48 @@ const checkPaymentCode = async (code:string) => {
      if (getCode.hasPaid) {
         throw new ErrorResponse(404, 'This order has been paid for')
      }
-    console.log(getCode, "getCode")
-    return getCode
+        const params = JSON.stringify({
+        "email": "customer@email.com",
+        "amount": "20000"
+        })
+
+        const options = {
+        hostname: 'api.paystack.co',
+        port: 443,
+        path: '/transaction/initialize',
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer SECRET_KEY',
+            'Content-Type': 'application/json'
+        }
+        }
+
+try {
+        const response  = await new Promise((resolve, reject) => {
+            const req = https.request(options, (res:Response) => {
+                let data = '';
+
+                res.on('data', (chunk: Buffer) => {
+                    data += chunk.toString(); 
+                });
+
+                res.on('end', () => {
+                    resolve(JSON.parse(data));
+                });
+            }).on('error', (error: Error) => {
+                reject(error);
+            });
+
+            req.write(params);
+            req.end();
+        });
+    
+        console.log(response,"response")
+        return response;
+    } catch (error) {
+        console.error(error);
+        throw new ErrorResponse(500, 'Payment initialization failed');
+    }
 };
 
 export default {
