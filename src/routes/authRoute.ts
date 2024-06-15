@@ -7,4 +7,5 @@ import validate from "../middlewares/validate";
 router.post('/signup', validate(authValidation.signup), register)
 router.post('/login', validate(authValidation.login), login)
 
+
 export default router;

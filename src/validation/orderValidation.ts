@@ -20,8 +20,15 @@ const createAnOrder = {
   })
 }
 
+const checkCode = {
+  body: Joi.object().keys({
+  code: Joi.string().required()
+  })
+}
+
 
 export default{
-  createAnOrder
+  createAnOrder,
+  checkCode
 }
 

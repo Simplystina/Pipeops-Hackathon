@@ -14,8 +14,12 @@ const generateAnOrderURL = asyncHandler(async (req:CustomRequest, res:Response) 
   })
 })
 
-
+const checkPaymentCode = asyncHandler(async (req: CustomRequest, res: Response) => {
+  const data = await orderService.checkPaymentCode(req.body.code)
+  console.log(data,"data")
+})
 
 export default {
-  generateAnOrderURL
+  generateAnOrderURL,
+  checkPaymentCode
 }

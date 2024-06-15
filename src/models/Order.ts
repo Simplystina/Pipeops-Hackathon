@@ -2,8 +2,8 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 interface IOrder extends Document {
   userId: string;
-customerPhone: string | null;
-customerName: string| null
+  customerPhone: string | null;
+  customerName: string| null
   totalAmount: number;
   itemOrdered: { item: string; total: number }[] | null;
   thumbnail: string | null;

@@ -22,6 +22,17 @@ const createAnOrder = async (data: any, id: string) => {
     }
 };
 
+const checkPaymentCode = async (code:string) => {
+    const getCode = await OrderModel.findOne({ paymentCode: code })
+     if (!getCode) {
+         throw new ErrorResponse(404, 'This code does not exist')
+     }
+    if (!getCode.isCodeActive) {
+        throw new ErrorResponse(404, 'This code is no longer active')
+    }
+};
+
 export default {
-  createAnOrder
+    createAnOrder,
+    checkPaymentCode
 }
