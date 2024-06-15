@@ -44,8 +44,8 @@ const checkPaymentCode = async (code:string) => {
         return getPayment.authorization_url
     }
         const params = JSON.stringify({
-        "email": "customer@email.com",
-        "amount": "20000"
+        "email": getOrder.customerEmail,
+        "amount": getOrder.totalAmount * 100,
         })
 
         const options = {
@@ -95,7 +95,12 @@ const checkPaymentCode = async (code:string) => {
     }
 };
 
+
+const updateOrderStatus = async (data: any) => {
+    
+}
 export default {
     createAnOrder,
-    checkPaymentCode
+    checkPaymentCode,
+    updateOrderStatus
 }

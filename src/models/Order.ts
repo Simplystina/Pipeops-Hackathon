@@ -3,7 +3,9 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 interface IOrder extends Document {
   userId: string;
   customerPhone: string | null;
-  customerName: string| null
+  customerEmail: string | null;
+  customerName: string | null
+  customerStateOfResidence: string | null;
   totalAmount: number;
   itemOrdered: { item: string; total: number }[] | null;
   thumbnail: string | null;
@@ -52,11 +54,15 @@ const orderSchema: Schema<IOrder> = new Schema({
     type: String,
     default: null,
   },
-  address: {
+  customerEmail: {
     type: String,
     default: null,
   },
   customerAddress: {
+    type: String,
+    default: null,
+  },
+  customerStateOfResidence: {
     type: String,
     default: null,
   },
