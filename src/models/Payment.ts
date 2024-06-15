@@ -5,7 +5,7 @@ export interface IPayment extends Document {
     amount: number;
     paymentGeneratedDate: Date
     paymentMadeDate: Date;
-    status: string;
+    status: 'pending' | 'success' | 'failed';
     reference: string;
     access_code: string;
     authorization_url: string;
@@ -17,11 +17,10 @@ const PaymentSchema: Schema = new Schema({
     amount: { type: Number, required: true },
     paymentGeneratedDate: { type: Date, default: Date.now },
     paymentMadeDate: { type: Date},
-    status: { type: String, required: true },
+    status: { type: String, required: true, enum: ['pending', 'success', 'failed'], default: 'pending' },
     reference: { type: String, required: true },
     access_code: { type: String, required: true },
     authorization_url: { type: String, required: true }
-    
 });
 
 export const PaymentModel = mongoose.model<IPayment>('Payment', PaymentSchema);

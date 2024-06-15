@@ -54,7 +54,7 @@ const checkPaymentCode = async (code:string) => {
         path: '/transaction/initialize',
         method: 'POST',
         headers: {
-            Authorization: process.env.SECRET_KEY,
+            Authorization: `Bearer ${process.env.SECRET_KEY}`,
             'Content-Type': 'application/json'
         }
         }

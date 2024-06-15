@@ -6,7 +6,7 @@ import validate from "../middlewares/validate";
 import Auth from "../middlewares/authMiddleware";
 import { userValidation } from "../validation";
 
-router.put('/', Auth, validate(userValidation.updateProfile), updateProfile)
+router.patch('/', Auth, validate(userValidation.updateProfile), updateProfile)
 
 
 
