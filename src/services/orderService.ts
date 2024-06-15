@@ -38,6 +38,11 @@ const checkPaymentCode = async (code:string) => {
      if (getOrder.hasPaid) {
         throw new ErrorResponse(404, 'This order has been paid for')
      }
+    
+    const getPayment = await PaymentModel.findOne({ orderId: getOrder.id })
+    if (getPayment) {
+        return getPayment.authorization_url
+    }
         const params = JSON.stringify({
         "email": "customer@email.com",
         "amount": "20000"
@@ -76,14 +81,14 @@ const checkPaymentCode = async (code:string) => {
     
         console.log(response,"response")
         const createPayment = await PaymentModel.create({
-             orderId: getOrder._id,
-              amount: getOrder.totalAmount,
+            orderId: getOrder._id,
+            amount: getOrder.totalAmount,
             paymentGeneratedDate: new Date(),
             reference: response.data.reference,
             access_code: response.data.access_code,
             authorization_url: response.data.authorization_url
         })
-     return response;
+     return response.data.authorization_url
     } catch (error) {
         console.error(error);
         throw new ErrorResponse(500, 'Payment initialization failed');
