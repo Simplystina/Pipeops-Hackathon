@@ -32,13 +32,12 @@ const checkPaymentCode = async (code:string) => {
      if (!getOrder)  {
          throw new ErrorResponse(404, 'This code does not exist')
      }
-    if (!getOrder.isCodeActive) {
-        throw new ErrorResponse(404, 'This code is no longer active')
-    }
      if (getOrder.hasPaid) {
         throw new ErrorResponse(404, 'This order has been paid for')
      }
-    
+     if (!getOrder.isCodeActive) {
+        throw new ErrorResponse(404, 'This code is no longer active')
+    }
     const getPayment = await PaymentModel.findOne({ orderId: getOrder.id })
     if (getPayment) {
         return getPayment.authorization_url
@@ -100,7 +99,6 @@ const checkPaymentCode = async (code:string) => {
 
 
 const updateOrderStatus = async (data:any) => {
-    console.log(data.event, "dataaaaaaaaaaaaaaa")
     if (data.event === "charge.success") { 
         const getOrder = await OrderModel.findOne({ _id: data.data.metadata.orderId })
         if (!getOrder) {
@@ -119,9 +117,8 @@ const updateOrderStatus = async (data:any) => {
             paymentStatus: data.data.status,
             paymentMadeDate: new Date()
         })
-        console.log(updateOrder, "updateOrder",updatePayment, "updatePayment")
+      
     }
-
 }
 export default {
     createAnOrder,

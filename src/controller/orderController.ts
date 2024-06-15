@@ -35,10 +35,8 @@ const checkOrderStatus = asyncHandler(async (req: CustomRequest, res: Response) 
     if (hash == req.headers['x-paystack-signature']) {
     // Retrieve the request's body
       const data = req.body
-       console.log(data, "data")
       const status = await orderService.updateOrderStatus(data)
-     
-      
+           
     }
  
    return res.send(200)
