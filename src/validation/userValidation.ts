@@ -12,14 +12,22 @@ const getUsers = {
   })
 };
 
-const InviteBusiness = {
+const updateProfile = {
   body: Joi.object().keys({
-    email: Joi.string().email().required()
+    phone: Joi.string(),
+    image: Joi.string(),
+    stateOfOrigin: Joi.string(),
+    firstName: Joi.string(),
+    lastName: Joi.string(),
+    localGovtOfOrigin: Joi.string(),
+    stateOfResidence: Joi.string(),
+    localGovtOfResidence: Joi.string(),
+  
   })
 }
 
 
 export default{
-  InviteBusiness,
+  updateProfile,
   getUsers 
 }
