@@ -99,8 +99,8 @@ const checkPaymentCode = async (code:string) => {
 };
 
 
-const updateOrderStatus = async (data: any) => {
-    console.log(data.event)
+const updateOrderStatus = async (data:any) => {
+    console.log(data.event, "dataaaaaaaaaaaaaaa")
     if (data.event === "charge.success") { 
         const getOrder = await OrderModel.findOne({ _id: data.data.metadata.orderId })
         if (!getOrder) {
@@ -116,7 +116,7 @@ const updateOrderStatus = async (data: any) => {
         })
         //update payment
         const updatePayment = await PaymentModel.updateOne({ orderId: data.data.metadata.orderId }, {
-            paymentStatus: data.data.success,
+            paymentStatus: data.data.status,
             paymentMadeDate: new Date()
         })
         console.log(updateOrder, "updateOrder",updatePayment, "updatePayment")
