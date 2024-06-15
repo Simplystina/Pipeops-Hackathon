@@ -8,5 +8,4 @@ import orderController from "../controller/orderController";
 
 router.post('/generate-url', auth, validate(orderValidation.createAnOrder), orderController.generateAnOrderURL);
 router.post('/check-code', auth, validate(orderValidation.checkCode), orderController.checkPaymentCode)
-router.post('/check-order-status', orderController.checkOrderStatus)
 export default router;
