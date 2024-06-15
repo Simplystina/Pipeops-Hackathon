@@ -1,9 +1,12 @@
+import { date } from "joi";
 import { ErrorResponse } from "../core";
 import OrderModel from "../models/Order";
+import { PaymentModel } from "../models/Payment";
 import generateUniqueInvitationCode from "../util/uniqueCode";
 import dotenv from "dotenv"
 const https = require('https')
 import { Request, Response, NextFunction } from "express";
+import { PaystackResponse } from "../types/orderResponse.dto";
 
 dotenv.config()
 
@@ -25,14 +28,14 @@ const createAnOrder = async (data: any, id: string) => {
 };
 
 const checkPaymentCode = async (code:string) => {
-    const getCode = await OrderModel.findOne({ paymentCode: code })
-     if (!getCode) {
+    const getOrder = await OrderModel.findOne({ paymentCode: code })
+     if (!getOrder)  {
          throw new ErrorResponse(404, 'This code does not exist')
      }
-    if (!getCode.isCodeActive) {
+    if (!getOrder.isCodeActive) {
         throw new ErrorResponse(404, 'This code is no longer active')
     }
-     if (getCode.hasPaid) {
+     if (getOrder.hasPaid) {
         throw new ErrorResponse(404, 'This order has been paid for')
      }
         const params = JSON.stringify({
@@ -51,8 +54,8 @@ const checkPaymentCode = async (code:string) => {
         }
         }
 
-try {
-        const response  = await new Promise((resolve, reject) => {
+    try {
+        const response : PaystackResponse = await new Promise((resolve, reject) => {
             const req = https.request(options, (res:Response) => {
                 let data = '';
 
@@ -72,7 +75,15 @@ try {
         });
     
         console.log(response,"response")
-        return response;
+        const createPayment = await PaymentModel.create({
+             orderId: getOrder._id,
+              amount: getOrder.totalAmount,
+            paymentGeneratedDate: new Date(),
+            reference: response.data.reference,
+            access_code: response.data.access_code,
+            authorization_url: response.data.authorization_url
+        })
+     return response;
     } catch (error) {
         console.error(error);
         throw new ErrorResponse(500, 'Payment initialization failed');
