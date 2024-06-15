@@ -44,8 +44,11 @@ const checkPaymentCode = async (code:string) => {
         return getPayment.authorization_url
     }
         const params = JSON.stringify({
-        "email": getOrder.customerEmail,
-        "amount": getOrder.totalAmount * 100,
+            "email": getOrder.customerEmail,
+            "amount": getOrder.totalAmount * 100,
+            metadata: {
+            orderId: getOrder._id,
+          }
         })
 
         const options = {
@@ -97,7 +100,28 @@ const checkPaymentCode = async (code:string) => {
 
 
 const updateOrderStatus = async (data: any) => {
-    
+    console.log(data.event)
+    if (data.event === "charge.success") { 
+        const getOrder = await OrderModel.findOne({ _id: data.data.metadata.orderId })
+        if (!getOrder) {
+            throw new ErrorResponse(404, 'This order does not exist')
+        }
+        if (getOrder.hasPaid) {
+            throw new ErrorResponse(404, 'This order has been paid for')
+        }
+        //update Order and render order code as inactive
+        const updateOrder = await OrderModel.updateOne({ _id: data.data.metadata.orderId }, {
+            hasPaid: true,
+            isCodeActive: false
+        })
+        //update payment
+        const updatePayment = await PaymentModel.updateOne({ orderId: data.data.metadata.orderId }, {
+            paymentStatus: data.data.success,
+            paymentMadeDate: new Date()
+        })
+        console.log(updateOrder, "updateOrder",updatePayment, "updatePayment")
+    }
+
 }
 export default {
     createAnOrder,

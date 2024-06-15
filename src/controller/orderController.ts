@@ -34,11 +34,9 @@ const checkOrderStatus = asyncHandler(async (req: CustomRequest, res: Response) 
   const hash = crypto.createHmac('sha512', secret as string).update(JSON.stringify(req.body)).digest('hex');
     if (hash == req.headers['x-paystack-signature']) {
     // Retrieve the request's body
-      const event = req.body;
        const data = req.body
       const status = await orderService.updateOrderStatus(data)
       console.log(data, "data")
-    // Do something with event  
     }
  
    return res.send(200)
