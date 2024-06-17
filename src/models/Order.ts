@@ -10,6 +10,7 @@ interface IOrder extends Document {
   itemOrdered: { item: string; total: number }[] | null;
   thumbnail: string | null;
   paidDelivery: boolean;
+  deliveryPrice: number;
   customerLocation: string | null;
   address: string | null;
   customerAddress: string | null;
@@ -45,6 +46,9 @@ const orderSchema: Schema<IOrder> = new Schema({
   paidDelivery: {
     type: Boolean,
     required: false,
+  },
+  deliveryPrice: {
+     type: Number,
   },
   customerLocation: {
     type: String,

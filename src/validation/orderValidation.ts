@@ -14,7 +14,8 @@ const createAnOrder = {
       total: Joi.number().required()
     })
   ),
-  paidDelivery: Joi.boolean().required(),
+    paidDelivery: Joi.boolean().required(),
+   deliveryPrice: Joi.number(),
   customerLocation: Joi.string(),
   address: Joi.string(),
   customerAddress: Joi.string(),
