@@ -19,7 +19,8 @@ const createAnOrder = {
   customerLocation: Joi.string(),
   address: Joi.string(),
   customerAddress: Joi.string(),
-  customerStateOfResidence: Joi.string(),
+    customerStateOfResidence: Joi.string(),
+  
   })
 }
 
