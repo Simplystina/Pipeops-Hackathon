@@ -30,7 +30,7 @@ const changeBusinessPassword = async (id: string, oldPassword: string, newPasswo
   // Find the business by ID
   const business = await UserModel.findById(id).select('+password')
   if (!business) {
-    throw new ErrorResponse(404, 'Business not found')
+    throw new ErrorResponse(404, 'This business is not found')
   }
 
   // Check if the old password matches
