@@ -36,7 +36,7 @@ const Auth = (0, core_1.asyncHandler)((req, res, next) => __awaiter(void 0, void
         // Verify token
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
         req.user = yield User_1.default.findById(decoded.user_id);
-        if (req.user && req.user.role === 'business') {
+        if (req.user) {
             return next();
         }
         else {

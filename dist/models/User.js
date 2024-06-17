@@ -111,11 +111,11 @@ const userSchema = new mongoose_1.Schema({
         trim: true,
         lowercase: true,
         enum: {
-            values: ['user', 'admin', 'super', 'business'],
-            message: "Chose One ['user', 'admin','super','business']"
+            values: ['user', 'admin', 'super'],
+            message: "Chose One ['user', 'admin','super']"
         },
         required: [true, 'Please User is Required'],
-        default: 'business'
+        default: 'user'
     },
     TokenExpire: {
         type: Number,

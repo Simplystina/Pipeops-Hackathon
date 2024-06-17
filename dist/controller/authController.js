@@ -26,7 +26,7 @@ const register = (0, core_1.asyncHandler)((req, res, next) => __awaiter(void 0, 
     const { email } = req.body;
     try {
         const checkAccount = yield User_1.default.findOne({
-            username: email
+            email: email
         });
         if (checkAccount) {
             return next(new core_1.ErrorResponse(400, `Email Address already exist, \n Please Login or Reset password if Forgotten`));

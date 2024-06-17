@@ -16,6 +16,7 @@ const EnvVars_1 = __importDefault(require("./constants/EnvVars"));
 const misc_1 = require("./constants/misc");
 const core_error_1 = __importDefault(require("./core/core.error"));
 const routes_1 = require("./routes");
+const orderController_1 = __importDefault(require("./controller/orderController"));
 // **** Variables **** //
 const app = (0, express_1.default)();
 // **** Setup **** //
@@ -56,10 +57,13 @@ app.all('/', (req, res) => {
         data: Object.assign(Object.assign({}, req.body), req.query)
     });
 });
+app.post('/paystack/webhook', orderController_1.default.checkOrderStatus);
 // Add APIs, must be after middleware
 app.use('/v1/auth', routes_1.AuthRoute);
 app.use('/v1/super', routes_1.SuperRoute);
 app.use('/v1/business', routes_1.BusinessRoute);
+app.use('/v1/order', routes_1.OrderRoute);
+app.use('/v1/users', routes_1.UserRoute);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     res.status(404).json({

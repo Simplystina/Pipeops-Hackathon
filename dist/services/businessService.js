@@ -38,7 +38,7 @@ const changeBusinessPassword = (id, oldPassword, newPassword) => __awaiter(void 
     // Find the business by ID
     const business = yield User_1.default.findById(id).select('+password');
     if (!business) {
-        throw new core_1.ErrorResponse(404, 'Business not found');
+        throw new core_1.ErrorResponse(404, 'This business is not found');
     }
     // Check if the old password matches
     console.log(oldPassword, business.password, business, "passwords");
