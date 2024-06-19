@@ -47,7 +47,8 @@ const checkPaymentCode = async (code:string) => {
             "amount": getOrder.totalAmount * 100,
             metadata: {
             orderId: getOrder._id,
-          }
+          },
+           callback_url: "https://minor-market-recondite-grape-production.pipeops.app/payment/success" 
         })
 
         const options = {

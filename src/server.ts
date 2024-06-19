@@ -15,7 +15,7 @@ import EnvVars from './constants/EnvVars';
 
 import { NodeEnvs } from './constants/misc';
 import errorHandler from './core/core.error';
-import { AuthRoute, SuperRoute, BusinessRoute , OrderRoute, UserRoute} from './routes';
+import { AuthRoute, SuperRoute, OrderRoute, UserRoute} from './routes';
 import orderController from './controller/orderController';
 
 // **** Variables **** //
@@ -74,7 +74,6 @@ app.post('/paystack/webhook', orderController.checkOrderStatus)
 // Add APIs, must be after middleware
 app.use('/v1/auth', AuthRoute);
 app.use('/v1/super', SuperRoute);
-app.use('/v1/business', BusinessRoute);
 app.use('/v1/order', OrderRoute);
 app.use('/v1/users', UserRoute);
 
